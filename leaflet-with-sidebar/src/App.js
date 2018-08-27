@@ -4,13 +4,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Map from './components/Map';
 import DrawerBtn from './components/DrawerBtn';
 
-const drawerWidth = 300;
+const drawerWidth = 400;
 const drawerColor = '#ffffff';
 
 const styles = theme => ({
@@ -64,12 +61,8 @@ class App extends React.Component {
   };
 
   render() {
-    const { classes, theme } = this.props;
-    const { anchor, DrawerOpen } = this.state;
-
-
-    var buttonClassName = this.state.DrawerOpen? 'buttonDivOpen' : 'buttonDivClosed';
-    var buttonIcon = this.state.DrawerOpen? <ChevronLeftIcon/> : <ChevronRightIcon/>
+    const { classes } = this.props;
+    const { DrawerOpen } = this.state;
 
     return (
       <div className={classes.root}>
@@ -77,18 +70,20 @@ class App extends React.Component {
           <PersistentDrawer 
           open={this.state.DrawerOpen}
           drawerWidth={drawerWidth}/>
+          
           <main
             className={classNames(classes.content, classes[`content-left`], {
               [classes.contentShift]: DrawerOpen,
               [classes[`contentShift-left`]]: DrawerOpen,
             })}
           >
-              <Map/>
+          <Map/>
 
           <DrawerBtn 
           handleDrawerToggle={this.handleDrawerToggle.bind(this)}
           drawerOpen={this.state.DrawerOpen}
-          drawerColor={drawerColor}/>
+          drawerColor={drawerColor}
+          drawerWidth={drawerWidth}/>
           
           </main>
         </div>
@@ -97,9 +92,8 @@ class App extends React.Component {
   }
 }
 
-PersistentDrawer.propTypes = {
+App.propTypes = {
   classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(App);

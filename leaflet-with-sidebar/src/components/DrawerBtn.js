@@ -5,8 +5,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import classNames from 'classnames';
 
-const drawerWidth = 300;
-
 const styles = theme => ({
     drawerButton: {
         margin: 0,
@@ -15,20 +13,9 @@ const styles = theme => ({
         outline: 'none',
         height: 50
       },
-      'buttonDivOpen': {
+      'buttonDiv': {
         position: 'absolute',
         top: '50%',
-        left: drawerWidth,
-        zIndex: 10000,
-        transition: theme.transitions.create('left', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        })
-      },
-      'buttonDivClosed': {
-        position: 'absolute',
-        top: '50%',
-        left: 0,
         zIndex: 10000,
         transition: theme.transitions.create('left', {
           easing: theme.transitions.easing.sharp,
@@ -44,13 +31,13 @@ class DrawerBtn extends React.Component {
   };
 
   render() {
-    const { classes, drawerColor, drawerOpen } = this.props;
+    const { classes, drawerColor, drawerOpen, drawerWidth } = this.props;
 
-    var buttonClassName = drawerOpen? 'buttonDivOpen' : 'buttonDivClosed';
+    var leftPos = drawerOpen? drawerWidth : 0;
     var buttonIcon = drawerOpen? <ChevronLeftIcon/> : <ChevronRightIcon/>    
 
     return (
-    <div className={classNames(classes[`${buttonClassName}`]) } >
+    <div style={{left:leftPos}} className={classNames(classes.buttonDiv) } >
         <button 
           style={{backgroundColor: drawerColor}}
           className={classNames(classes.drawerButton)}
